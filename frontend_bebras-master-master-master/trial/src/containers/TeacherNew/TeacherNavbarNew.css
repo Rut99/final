@@ -1,0 +1,165 @@
+    /* .TeacherNavbarNew{
+        display: flex ;
+        display: inline ;
+        position: relative;
+        background-color: lightcoral;
+    }
+
+    .navattributes{
+        background-color: #3cbee6;
+        width:90%;
+        margin:0 5%;
+        
+    }
+    .logo{
+        height: 70px;
+        margin: 0px 230px 0px 0px;
+        float: left;
+        align-content: flex-start;
+    }
+    .headings{
+        display: inline-block;
+        height: 100%;
+        margin: 15px 0px 0px 15px;
+        font-family: sans-serif;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 0 0 16px 0;
+        
+    }
+
+    .logoutbtn{
+        size: 30px;
+        height: 40px;
+        margin: 7px;
+    }
+    .zz-top:before{
+        background: linear-gradient(-135deg, #ffffff 50%, transparent 0), linear-gradient(135deg, #ffffff 50%, transparent 0);
+        background: -webkit-linear-gradient(-135deg, #ffffff 33.33%, transparent 0), -webkit-linear-gradient(-45deg, #ffffff 33.33%, transparent 0);
+            background-position: left top;
+            background-repeat: repeat-x;
+            background-size: 15px 15px;
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 72px;
+            left: 0px;
+            width: 100%;
+            height: 15px;
+            z-index:90;
+    }
+    .zz-top-foo:before{background: linear-gradient(-45deg, #303948 50%, transparent 0), linear-gradient(45deg, #303948 50%, transparent 0);
+        background: -webkit-linear-gradient(135deg, #303948 33.33%, transparent 0), -webkit-linear-gradient(45deg, #303948 33.33%, transparent 0);
+        background-position: left top;
+            background-repeat: repeat-x;
+            background-size: 15px 15px;
+            content: " ";
+            display: block;
+            position: relative;
+            top: -15px;
+            left: 0px;
+            width: 100%;
+            height: 15px;
+            z-index:90;}
+    
+    .zz-bottom:after{
+        background: linear-gradient(-45deg, #ffffff 50%, transparent 0), linear-gradient(45deg, #ffffff 50%, transparent 0);
+        background: -webkit-linear-gradient(135deg, #ffffff 33.33%, transparent 0), -webkit-linear-gradient(45deg, #ffffff 33.33%, transparent 0);
+            background-position: left bottom;
+            background-repeat: repeat-x;
+            background-size: 15px 15px;
+            content: " ";
+            display: block;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 15px;
+            z-index:90;
+    } */
+
+
+
+    .TeacherNavbarNew{
+        background: url("../../images/bkg.svg") repeat scroll center center #E9F8FC;    
+    }
+    
+    .navattributes{
+        background-color: #3cbee6;
+        width:90%;
+        margin:0 5%;
+        
+    }
+    
+    .logo{
+        height: 70px;
+        margin: 0px 230px 0px 0px;
+        float: left;
+        align-content: flex-start;
+    }
+    .headings{
+        display: inline-block;
+        height: 100%;
+        margin: 15px 0px 0px 15px;
+        font-family: sans-serif;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 0 0 16px 0;
+        
+    }
+    
+    .logoutbtn{
+        size: 30px;
+        height: 40px;
+        margin: 5px;
+    }
+    .zz-top:before{
+        background: linear-gradient(-135deg, #ffffff 50%, transparent 0), linear-gradient(135deg, #ffffff 50%, transparent 0);
+        background: -webkit-linear-gradient(-135deg, #ffffff 33.33%, transparent 0), -webkit-linear-gradient(-45deg, #ffffff 33.33%, transparent 0);
+               background-position: left top;
+               background-repeat: repeat-x;
+               background-size: 15px 15px;
+               content: " ";
+               display: block;
+               position: absolute;
+               top: 72px;
+               left: 0px;
+               width: 100%;
+               height: 15px;
+               z-index:90;
+       }
+       .zz-top-foo:before{background: linear-gradient(-45deg, #303948 50%, transparent 0), linear-gradient(45deg, #303948 50%, transparent 0);
+        background: -webkit-linear-gradient(135deg, #303948 33.33%, transparent 0), -webkit-linear-gradient(45deg, #303948 33.33%, transparent 0);
+        background-position: left top;
+               background-repeat: repeat-x;
+               background-size: 15px 15px;
+               content: " ";
+               display: block;
+               position: relative;
+               top: -15px;
+               left: 0px;
+               width: 100%;
+               height: 15px;
+               z-index:90;}
+       
+       .zz-bottom:after{
+        background: linear-gradient(-45deg, #ffffff 50%, transparent 0), linear-gradient(45deg, #ffffff 50%, transparent 0);
+        background: -webkit-linear-gradient(135deg, #ffffff 33.33%, transparent 0), -webkit-linear-gradient(45deg, #ffffff 33.33%, transparent 0);
+               background-position: left bottom;
+               background-repeat: repeat-x;
+               background-size: 15px 15px;
+               content: " ";
+               display: block;
+               position: absolute;
+               bottom: 0px;
+               left: 0px;
+               width: 100%;
+               height: 15px;
+               z-index:90;
+       }
+       
+    

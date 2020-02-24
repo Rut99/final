@@ -1,0 +1,228 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+
+.label1{
+    text-align: right;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(97, 94, 94);
+    font-size: large;
+}
+
+
+.BulkRegistration{
+    display: flex ;
+    display: inline ;
+    position: relative;
+    
+}
+.bluesection{
+    background-color:#3cbee6;
+    width:90%;
+    margin:0 5%;
+    padding-bottom: 20px;
+    height: fit-content;
+    position: relative;
+}
+.bluesection1{
+    background-color:#3cbee6;
+    width:90%;
+    margin:0 5%;
+    padding: 20px;
+    height: 200px;
+    position: relative;
+}
+.bluecontent{
+    font-size: 54px;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 0;
+    text-align: center;
+    font-family: 'Pacifico', cursive;;
+}
+
+.containerupload{
+   background-color: white;
+    width: 90%;
+    padding: 5%;  
+    margin-left:5% ;     
+    
+}
+.uploadbuttons{
+    margin-left: 25%;
+}
+.containerupload button{
+    margin: 0% 0% 2% 3%;
+    border: 1px solid rgb(44, 117, 185);
+    background-color: rgb(44, 117, 185);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 35px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+.containerupload input{
+    margin: 0% 0% 2% 3%;
+    border: 1px solid rgb(44, 117, 185);
+    background-color: rgb(44, 117, 185);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+::-webkit-file-upload-button {
+    border:none;
+    background: transparent;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    
+  }
+.containerbulkreg{
+    background-color:#fff;
+    width:90%;
+    margin:0 5%;
+    padding-top: 20px;
+    
+}
+/*
+.containerreg {
+    width: 100%;
+    
+}
+
+.containerreg1 {
+   
+    align-content: stretch;
+}
+.rowdata{
+    width:80%;
+    margin:0 10%;
+    
+}
+
+.centerreg {
+    display: flex;
+    justify-content: center;
+} 
+
+.hide {
+    display: none;
+}
+
+ .menu {
+    background-color:#3cbee6;
+    box-shadow: 0px 2px 24px 0px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    position: relative;
+}
+
+.menu__right {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.menu__list {
+    list-style-type: none;
+    padding: 0;
+    height: 100%;
+    margin: 0;
+    margin-right: 40px;
+}
+
+.menu__list-item {
+    display: inline-block;
+    height: 100%;
+    margin-right: 20px;
+    font-family: sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0 0 16px 0;
+    padding: 0 3px;
+    
+    
+}
+
+.menu__list-item:last-child {
+    margin-right: 0;
+}
+
+.menu__link {
+    color:#fff;
+    display: inline-block;
+    height: 100%;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    padding: 0 3px;
+}
+
+.menu__link:hover {
+    color: #ffaa3b;
+}
+
+.menu__link--active {
+    color: #ffaa3b;
+    border-top: 4px solid #ffaa3b;
+    font-weight: 700;
+}
+
+/* .menu__logo {
+    text-indent: -9999999px;
+    display: inline-block;
+    height: 100%;
+    width: 92px;
+    background-image: url(logo.png);
+    background-size: cover 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+} 
+
+.menu__search-button {
+    margin-top: 15px;
+    height: 42px;
+    width: 170px;
+   flex-wrap: wrap;
+    border: 1px solid #c8c9ce;
+    background-color: transparent;
+    text-transform: uppercase;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    background-image: url(search-icon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.menu__search-form {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding: 10px;
+    background-color: white;
+}
+
+.menu__search-input {
+    outline: none;
+    border: 1px solid #c8c9ce;
+    font-size: 18px;
+    padding: 5px;
+    font-weight: 300;
+}
+*/
