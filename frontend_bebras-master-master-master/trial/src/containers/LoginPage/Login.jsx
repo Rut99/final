@@ -2,7 +2,7 @@
 	import './Login.css';
 	import NewApp from '../NewApp/NewApp'
 	import { userService } from '../../services/user.service';
-	import Page from 'react-page-loading'
+	// import Page from 'react-page-loading'
 	
 	class Now extends React.Component {
 		constructor(props) {
@@ -71,7 +71,7 @@
 			const { loginID, password,  } = this.state;
 			return (
 			<div className="Login">
-				<Page loader={"bubble-spin"} color={"#A9A9A9"} size={40}></Page>
+				{/* <Page loader={"bubble-spin"} color={"#A9A9A9"} size={40}></Page> */}
 					<title>Home </title>
 					<meta charSet="UTF-8"></meta>
 					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>

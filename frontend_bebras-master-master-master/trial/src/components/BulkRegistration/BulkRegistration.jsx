@@ -9,6 +9,7 @@ import { createMuiTheme, MuiThemeProvider ,withStyles} from '@material-ui/core/s
 import { make_cols } from './MakeColumns';
 import { SheetJSFT } from './type';
 import XLSX from 'xlsx';
+import Excel from 'exceljs'
 const optionschool = [];
 const optionschoolclass = [];
 const optionschoolcmp = [];
@@ -176,7 +177,40 @@ class BulkRegistration extends React.Component {
       }
     }
   });
-
+  download_2()
+        {
+            const workbook = new Excel.Workbook();
+            var sheet = workbook.addWorksheet('Student_Registration');
+            sheet.columns = [
+                { header: 'FirstName', key: 'firstname', width: 32 },
+                { header: 'LastName', key: 'lastname', width: 32 },
+                { header: 'Gender', key: 'gender', width: 10},
+                { header: 'birthdate', key: 'DOB', width: 15 },
+                { header: 'phoneno', key: 'phonenum',width : 15},
+                { header: 'email', key: 'email',width : 32},
+              ];
+              
+              for(var i =2; i<80; i++) {
+                sheet.getCell(`C${i}`).dataValidation = {
+                  type: 'list',
+                  allowBlank: true,
+                  formulae: ['"male, female, other"'],
+                  operator: 'notEqual',
+                  showErrorMessage: true,
+                  errorStyle: 'error',
+                  errorTitle: 'choose a gender ',
+                  error: 'must be male, female or other'
+                };
+            var FileSaver = require('file-saver');  
+            //  workbook.creator = "test";
+             workbook.xlsx.writeBuffer().then(function(buffer) {
+                // done
+                console.log(buffer);
+                const blob = new Blob([buffer], { type: "applicationi/xlsx" });
+                FileSaver.saveAs(blob, "Student_Bulk_Registration.xlsx");
+              });
+        }
+    }
   download() {
     var wb = XLSX.utils.book_new();
     wb.Props = {
@@ -502,7 +536,8 @@ class BulkRegistration extends React.Component {
           <a style={{fontSize:"20px"}}> <b>STEP 1:</b><i className="fa fa-arrow-circle-down"></i></a>
               <div  className={this.state.showstep}>
                 <label><b>Click on the button to download the excel sheet, fill it with student data:</b> </label>
-                <button value="Download" onClick={this.download} id="download">Download</button>
+                {/* <button value="Download" onClick={this.download} id="download">Download</button> */}
+                <button value="Download"  onClick={this.download_2} id="download">Submit</button>
                 <p><b>Now Click on Step 2</b></p>
               </div><br></br>
              

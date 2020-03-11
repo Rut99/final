@@ -13,6 +13,7 @@
     "ag-grid-community": "^22.1.1",
     "ag-grid-react": "^22.1.1",
     "axios": "^0.19.2",
+    "exceljs": "^3.8.1",
     "file-saver": "^2.0.2",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf-yworks": "^2.1.1",

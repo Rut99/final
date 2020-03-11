@@ -587,30 +587,30 @@ class ConfirmResetPasswordView(APIView):
         else:
             return Response('The reset password link is no longer valid.')
 
-class ChangePasswordView(APIView):
-    # authentication_classes = (TokenAuthentication, )
-    # permission_classes = (permissions.IsAuthenticated,)
+# class ChangePasswordView(APIView):
+#     # authentication_classes = (TokenAuthentication, )
+#     # permission_classes = (permissions.IsAuthenticated,)
 
 
-    def put(self,request):
-         serializer = PasswordChangeSerializer(data=request.data)
+#     def put(self,request):
+#          serializer = PasswordChangeSerializer(data=request.data)
 
-         user = User.objects.get(loginID = request.data['loginID'])
-         print(user)
+#          user = User.objects.get(loginID = request.data['loginID'])
+#          print(user)
 
-         if serializer.is_valid():
-            if not user.check_password(serializer.data.get('old_password')):
-                return Response({'old_password': ['Wrong password.']},
-                                status=status.HTTP_400_BAD_REQUEST)
-            # set_password also hashes the password that the user will get
-            user.set_password(serializer.data.get('new_password'))
-            user.modified_on = datetime.now().date()
-            user.modified_by = request.data['loginID']
-            user.save()
-            return Response({'status': 'password set'}, status=status.HTTP_200_OK)
+#          if serializer.is_valid():
+#             if not user.check_password(serializer.data.get('old_password')):
+#                 return Response({'old_password': ['Wrong password.']},
+#                                 status=status.HTTP_400_BAD_REQUEST)
+#             # set_password also hashes the password that the user will get
+#             user.set_password(serializer.data.get('new_password'))
+#             user.modified_on = datetime.now().date()
+#             user.modified_by = request.data['loginID']
+#             user.save()
+#             return Response({'status': 'password set'}, status=status.HTTP_200_OK)
 
-         return Response(serializer.errors,
-                        status=status.HTTP_400_BAD_REQUEST)
+#          return Response(serializer.errors,
+#                         status=status.HTTP_400_BAD_REQUEST)
 
 class ContactUsMailApi(APIView):
 

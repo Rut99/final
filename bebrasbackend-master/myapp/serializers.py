@@ -63,9 +63,9 @@ class PasswordResetSerializer(serializers.ModelSerializer):
         return instance
 
 
-class PasswordChangeSerializer(serializers.Serializer):
-    """
-    Serializer for password change endpoint.
-    """
-    old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
+# class PasswordChangeSerializer(serializers.Serializer):
+#     """
+#     Serializer for password change endpoint.
+#     """
+#     old_password = serializers.CharField(required=True)
+#     new_password = serializers.CharField(required=True)
