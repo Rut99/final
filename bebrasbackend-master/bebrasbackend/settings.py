@@ -34,7 +34,14 @@ INSTALLED_APPS = [
     #  'django_mysql',
 ]
 
-
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'softcornercummins@gmail.com'
+SERVER_EMAIL = 'softcornercummins@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'softcornercummins@gmail.com'
+EMAIL_HOST_PASSWORD = 'softcorner@2020'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
 REST_FRAMEWORK = {

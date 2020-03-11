@@ -45,7 +45,8 @@
 
     /* RESET STYLES */
     .contactlabel{
-        align-self: stretch;
+        align-self: start;
+        margin-left: 5%;
     }
     .logoimg{
         width: 200px;

@@ -51,3 +51,21 @@ class LoginSerializer(serializers.Serializer):
       return user
     raise serializers.ValidationError("Incorrect Credentials")
 
+class PasswordResetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('loginID','password')
+
+    def update(self, instance, validated_data):
+        instance.password = validated_data.get('password', instance.password)
+        instance.set_password(instance.password)
+        instance.save()
+        return instance
+
+
+class PasswordChangeSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

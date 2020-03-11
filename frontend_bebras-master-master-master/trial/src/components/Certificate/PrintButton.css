@@ -1,0 +1,25 @@
+.printButton
+{
+   text-align: center;
+    width: fit-content;
+    align-self: center;
+    border-radius: 0px;
+    align-items: flex-end;
+    border: 1px solid green;
+    background-color: green;
+    /* changed khalche 3 attributes */
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    margin: 0% 0% 0% 75%;
+    font-weight: bold;
+    padding: 10px 25px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+.printButton:hover
+{  
+     background-color: lightgreen;
+    border: 1px solid lightgreen;
+    color: white;
+}

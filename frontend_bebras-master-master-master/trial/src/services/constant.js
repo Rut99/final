@@ -13,4 +13,7 @@
     export const getUsers = 'http://localhost:8000/api/auth/user';
     export const BulkRegister = 'http://localhost:8000/api/auth/bulkregister';
     export const BulkRegisterStudents = 'http://localhost:8000/api/auth/bulkregisterstudent';
-    
+    export const ResetPasswordViewurl = 'http://localhost:8000/api/auth/ResetPasswordView';
+    export const ConfirmResetPasswordViewurl = 'http://localhost:8000/api/auth/ConfirmResetPasswordView';
+    export const ChangePasswordView = 'http://localhost:8000/api/auth/ChangePasswordView';
+    export const ContactUsMail = 'http://localhost:8000/api/auth/ContactUsMail';

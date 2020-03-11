@@ -1,6 +1,6 @@
 
       import { Login } from './constant';
-      import { Register,BulkRegisterStudents,BulkRegister,getUsers,Cmp_Names,SchoolClasses,RegisterSchool, TeacherRegister,CountryNames, StateNames, DistrictNames, SchoolNames, RegisterStudent } from './constant';
+      import { ContactUsMail, Register,ResetPasswordViewurl,ConfirmResetPasswordViewurl,BulkRegisterStudents,BulkRegister,getUsers,Cmp_Names,SchoolClasses,RegisterSchool, TeacherRegister,CountryNames, StateNames, DistrictNames, SchoolNames, RegisterStudent } from './constant';
       import { Logout } from './constant';
       import Axios from 'axios';
       import Swal from "sweetalert2";
@@ -22,7 +22,160 @@
         getSchoolNames,
         getNamesUsers,
         getSchoolClasses,
+        ResetPasswordView,
+        ConfirmResetPasswordView,
+        contactUs,
       };
+      function contactUs(name, email, subject, message){
+        try{
+          return Axios({
+            url: `${ContactUsMail}`,
+            method: 'post',
+            data: {
+              name:name,
+              email:email,
+              subject:subject,
+              message:message
+            },
+          }).then(
+     
+            respons => {
+              // alert(respons.data)
+              console.log(respons.data);
+              Swal.fire({
+                imageUrl: require('../images/success.gif'),
+                imageAlt: 'Custom Image',
+                title: `${respons.data}`,
+                showConfirmButton: true,
+                timer: 1500000
+
+              });
+              return respons.data;
+            })
+            .catch(error => {
+              console.log(error);
+              console.log(error.message);
+              console.log(error.response.data.reason);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              Swal.fire({
+                imageUrl: require('../images/failure.gif'),
+                imageAlt: 'Custom Image',
+                title: `${error.response.statusText}`,
+                showConfirmButton: true,
+                timer: 1500000
+              });
+              throw error;
+            });
+      } catch (error) {
+        throw error;
+      }
+    }
+      function ResetPasswordView(data){
+        try{
+          return Axios({
+            url: `${ResetPasswordViewurl}`,
+            method: 'post',
+            data: {
+              loginID: data,
+            },
+          }).then(
+     
+            respons => {
+              // alert(respons.data)
+              console.log(respons.data);
+              localStorage.setItem('uid', respons.data.uidb64);
+              localStorage.setItem('token', respons.data.token);
+              Swal.fire({
+                imageUrl: require('../images/success.gif'),
+                imageAlt: 'Custom Image',
+                title: `${respons.data.response}`,
+                showConfirmButton: true,
+                timer: 1500000
+
+              });
+              return respons.data;
+            })
+            .catch(error => {
+              console.log(error);
+              console.log(error.message);
+              console.log(error.response.data.reason);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              Swal.fire({
+                imageUrl: require('../images/failure.gif'),
+                imageAlt: 'Custom Image',
+                title: `${error.response.statusText}`,
+                showConfirmButton: true,
+                timer: 1500000
+              });
+              throw error;
+            });
+        } catch (error) {
+          throw error;
+        }
+      }
+
+      function ConfirmResetPasswordView(password,uidb64,token){
+        if(localStorage.getItem('uid')==uidb64 && localStorage.getItem('token')==token){
+          try{
+            return Axios({
+              url: `${ConfirmResetPasswordViewurl}`,
+              method: 'post',
+              data: {
+                // loginID: loginID,
+                password: password,
+                uidb64:uidb64,
+                token:token
+              },
+            }).then(
+            
+              respons => {
+                // alert(respons.data)
+                console.log(localStorage.getItem('uid')+"anandnd"+localStorage.getItem('token'))
+                console.log(respons.data);
+                Swal.fire({
+                  imageUrl: require('../images/success.gif'),
+                  imageAlt: 'Custom Image',
+                  title: `${respons.data}`,
+                  showConfirmButton: true,
+                  timer: 1500000
+                  
+                });
+                localStorage.clear();
+                return respons.data;
+              })
+              .catch(error => {
+                console.log(error);
+                console.log(error.message);
+                console.log(error.response.data.reason);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+                Swal.fire({
+                  imageUrl: require('../images/failure.gif'),
+                  imageAlt: 'Custom Image',
+                  title: `${error.response.statusText}`,
+                  showConfirmButton: true,
+                  timer: 1500000
+                });
+                throw error;
+              });
+          } catch (error) {
+            throw error;
+          }
+        }
+        else{
+          Swal.fire({
+            imageUrl: require('../images/failure.gif'),
+            imageAlt: 'Custom Image',
+            title: "An error occoured!",
+            showConfirmButton: true,
+            timer: 1500000
+          });
+        }
+      
+      }
+
       function doBulkRegisterStudents(bulkdata){
         try{
           return Axios({
@@ -254,7 +407,7 @@
               Swal.fire({
                 imageUrl: require('../images/success.gif'),
                 imageAlt: 'Custom Image',
-                title: 'User registration Succesful!',
+                title: 'User registration Succesfull!',
                 showConfirmButton: true,
                 timer: 1500000
               });

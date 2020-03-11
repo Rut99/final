@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
-from .serializers import StudentSerializer, UserSerializer, RegisterSerializer, LoginSerializer,UserRoleSerializer,UserRoleLocationSerializer
+from .serializers import * #StudentSerializer, UserSerializer, RegisterSerializer, LoginSerializer,UserRoleSerializer,UserRoleLocationSerializer
 from .models import *
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
@@ -15,6 +15,37 @@ from .constants import  studentEnrollmentdata,TeacherRoleID,StudentRoleID,data1,
 import random
 import string
 import requests 
+
+
+from rest_framework import serializers
+from .models import *
+from com.models import *
+from com.serializers import *
+from django.contrib.auth import *
+from django.contrib.auth.hashers import make_password
+from rest_framework import exceptions
+from datetime import *
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.template import loader
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+from bebrasbackend.settings import DEFAULT_FROM_EMAIL
+from django.views.generic import *
+import smtplib  
+from email import encoders
+from email.message import Message
+from email.mime.audio import MIMEAudio
+from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+# from utils.forms.reset_password_form import PasswordResetRequestForm
+from django.contrib import messages
+from django.db.models.query_utils import Q
+# from django.contrib.auth.models import User
 
 class StudentBulkRegisterAPI(generics.GenericAPIView):
 
@@ -462,3 +493,162 @@ class SchoolRegisterAPI(generics.GenericAPIView):
         print(serializer.errors)
         return JsonResponse({'reason': serializer.errors    },status=400)
   
+class ResetPasswordView(APIView):
+    
+    def reset_password(self, user, request):
+        print("def reset pass")
+        global c
+        c = {
+            'email': user.email,
+            'domain': request.META['HTTP_HOST'],
+            'site_name': 'Bebras Admin',
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'user': user,
+            'token': default_token_generator.make_token(user),
+            'protocol': 'http',
+        }
+        subject_template_name = 'Password Reset';
+        print("uid " + c['uid'])
+        print('token ' + c['token'])
+        fromaddr = "softcornercummins@gmail.com"
+        toaddr = user.loginID
+        mail = MIMEMultipart()
+        mail['From'] = fromaddr
+        mail['To'] = toaddr
+        mail['Subject'] = subject_template_name
+        body = "You're receiving this email because you requested a password reset for your user account at " + c['site_name'] + ".\n\n" + \
+               "Please go to the following page and choose a new password:\n" + \
+                " http://localhost:3000/resetPassword/?uidb64="+c['uid'] + "&token=" + c['token'] + \
+               "\n\n\nYour username, in case you've forgotten:" + c['email'] + \
+                "\n\nThanks for using our site!" + \
+                "\n\n\nThe " + c['site_name'] + " team"
+        mail.attach(MIMEText(body, 'plain'))
+        # server = socket.getaddrinfo('smtp.gmail.com', 587)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(fromaddr, 'softcorner@2020')
+        text = mail.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        server.quit()
+
+    def post(self, request, *args, **kwargs):
+        print((request.data))
+        associated_users = User.objects.filter(loginID=request.data['loginID'])
+        print("hi")
+        print(associated_users)
+        if associated_users.exists():
+            for user in associated_users:
+                self.reset_password(user, request)
+            return JsonResponse({"uidb64":c['uid'],"token":c['token'],"response":"Email sent to the registered email id"})    
+            return Response("Email sent to the registered email id")
+        else:
+            return Response("Error")
+
+class ConfirmResetPasswordView(APIView):
+    def post(self, request, uidb64='None', token='None', *arg, **kwargs):
+
+        print("in post confirm reset password view")
+        print("request data: ")
+        print(request.data)
+        # print("uidb " , uidb64)
+        # print("token " , token)
+        print(request.data['uidb64'])
+        print(request.data['token'])
+        uidb64=request.data['uidb64']
+        token=request.data['token']
+        UserModel = get_user_model()
+        print(UserModel)
+        assert uidb64 is not None and token is not None  # checked by URLconf
+        try:
+            uid = urlsafe_base64_decode(uidb64)
+            print('uid :' )
+            print(uid)
+            user = UserModel._default_manager.get(pk=uid)
+            print('user :')
+            print(user)
+        except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
+            user = None
+        if user is not None:
+          print("okay")
+        print(default_token_generator.check_token(user, token))
+        if user is not None and default_token_generator.check_token(user, token):
+            id = User.objects.get(loginID=user.loginID)
+            print(id)
+            serializers = PasswordResetSerializer(id, data=request.data, partial=True)
+            serializers.is_valid(raise_exception=True)
+            saved = serializers.save(modified_on=datetime.now().date())
+            if saved:
+                return Response("Success")
+            else:
+                return Response('Password reset has not been successful.')
+
+        else:
+            return Response('The reset password link is no longer valid.')
+
+class ChangePasswordView(APIView):
+    # authentication_classes = (TokenAuthentication, )
+    # permission_classes = (permissions.IsAuthenticated,)
+
+
+    def put(self,request):
+         serializer = PasswordChangeSerializer(data=request.data)
+
+         user = User.objects.get(loginID = request.data['loginID'])
+         print(user)
+
+         if serializer.is_valid():
+            if not user.check_password(serializer.data.get('old_password')):
+                return Response({'old_password': ['Wrong password.']},
+                                status=status.HTTP_400_BAD_REQUEST)
+            # set_password also hashes the password that the user will get
+            user.set_password(serializer.data.get('new_password'))
+            user.modified_on = datetime.now().date()
+            user.modified_by = request.data['loginID']
+            user.save()
+            return Response({'status': 'password set'}, status=status.HTTP_200_OK)
+
+         return Response(serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
+
+class ContactUsMailApi(APIView):
+
+    def sendmail(self, request):
+        print("def send mail")
+        c = {
+            'email': request.data['email'],
+            'domain': request.META['HTTP_HOST'],
+            'site_name': 'Bebras Admin',
+            'protocol': 'http',
+        }
+        subject_template_name = 'Customer Queries';
+        fromaddr = "softcornercummins@gmail.com"
+        toaddr = "softcornercummins@gmail.com"
+        mail = MIMEMultipart()
+        mail['From'] = fromaddr
+        mail['To'] = toaddr
+        mail['Subject'] = subject_template_name
+        body = " Customer name: "+request.data['name']+"\n Customer email: "+request.data['email']+ \
+        "\n Query suject:"+request.data['subject']+"\n Query: \n"+request.data['message']
+        mail.attach(MIMEText(body, 'plain'))
+        # server = socket.getaddrinfo('smtp.gmail.com', 587)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(fromaddr, 'softcorner@2020')
+        text = mail.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        server.quit()
+
+    def post(self, request, *args, **kwargs):
+        print((request.data))
+        #associated_users = User.objects.filter(loginID=request.data['loginID'])
+        print("hi")
+        #print(associated_users)
+        if request.data['email']:
+            self.sendmail(request)
+            return Response("Thank you! Our helpdesk will contact you within 24 hours.")
+        else:
+            return Response("Error")

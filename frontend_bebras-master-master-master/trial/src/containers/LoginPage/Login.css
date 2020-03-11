@@ -16,7 +16,14 @@
 	  outline: none;
 	  border: none;
   }
-  
+ .forgetbtn{
+	 background-color: transparent;
+	 border:none;
+ } 
+ .forgetbtn:hover{
+	 color: rgb(21, 118, 209);
+	 font-weight: 550;
+ }
   textarea {
 	outline: none;
 	border: none;

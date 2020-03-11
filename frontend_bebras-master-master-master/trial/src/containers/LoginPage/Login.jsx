@@ -2,6 +2,8 @@
 	import './Login.css';
 	import NewApp from '../NewApp/NewApp'
 	import { userService } from '../../services/user.service';
+	import Page from 'react-page-loading'
+	
 	class Now extends React.Component {
 		constructor(props) {
 			super(props);
@@ -11,8 +13,27 @@
 			};
 			this.handleChange = this.handleChange.bind(this);
 			this.handleSubmit = this.handleSubmit.bind(this);
+			this.forgetpassword= this.forgetpassword.bind(this);
 		}
+		forgetpassword()
+		{
+			const{loginID}=this.state;
+			if(!(loginID))
+			{
+				return;
+			}
+			console.log(loginID)
+			userService.ResetPasswordView(loginID).then(
+				user => {
 
+					console.log('success')
+					const { from } = this.props.location.state || { from: { pathname: "/resetpassword" } };
+				},
+				error => {
+					const { from } = this.props.location.state || { from: { pathname: "/login" } };
+				}
+			);
+		}
 		handleChange(e) {
 			const { name, value } = e.target;
 			this.setState({ [name]: value });
@@ -50,6 +71,7 @@
 			const { loginID, password,  } = this.state;
 			return (
 			<div className="Login">
+				<Page loader={"bubble-spin"} color={"#A9A9A9"} size={40}></Page>
 					<title>Home </title>
 					<meta charSet="UTF-8"></meta>
 					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
@@ -77,7 +99,7 @@
 
 								<br></br>
 								<button class="buttonlogin">Sign In</button>
-								<a href="#">Forgot your password?</a>
+								<button class="forgetbtn" onClick={this.forgetpassword}>Forgot your password?</button>
 								<a href="/newapp/Home">Back To Home</a>
 								<a href="/Register">Not a user? Register here!</a>
 							</form>

@@ -1,20 +1,48 @@
 import React from 'react';
-    import '../App.css';
+import '../App.css';
+import { userService } from '../services/user.service';
 
     class Contact extends React.Component {
         constructor(props) {
             super(props);
+            this.state = {
+				name: '',
+                email: '',
+                subject:'',
+                message:'',
+            };
+            this.handleChange = this.handleChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
         }
+        handleChange(e) {
+			const { name, value } = e.target;
+			this.setState({ [name]: value });
+		}
         handleSubmit(event) {
             event.preventDefault();
+            console.log("hicon")
+            const { name, email, subject, message  } = this.state;
+            console.log(this.state)
+            if (!(email && message && subject && name)) {
+				return;
+            }
+            userService.contactUs(name, email, subject, message)
+				.then(
+					user => {
+                        const { from } = this.props.location.state || { from: { pathname: "http://localhost:3000/newapp/Contact" } };
+					},
+					error => {
+						const { from } = this.props.location.state || { from: { pathname: "http://localhost:3000/newapp/Contact" } };
+					}
+				);
             
-            document.getElementById("ip1").innerHTML = "Message sent"
-            document.getElementById("contact-form-holder").style.display = "none";
-            document.getElementById("ip3").innerHTML = "Thanks for contacting us! We will check your message within a few minutes."
+            // document.getElementById("ip1").innerHTML = "Message sent"
+            // document.getElementById("contact-form-holder").style.display = "none";
+            // document.getElementById("ip3").innerHTML = "Thanks for contacting us! We will check your message within a few minutes."
             
         }
         render() {
+            const { name, email, subject, message  } = this.state;
             return (
                 <div className="App">
                     <title>Bebras </title>
@@ -38,15 +66,15 @@ import React from 'react';
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div id="contact-form-holder">
-                                            <form action="#" onSubmit={this.handleSubmit} id="contact-form">
-                                                <label className="contactlabel">Name</label>
-                                                <p><input type="text" name="name" className="comm-field" /></p>
+                                            <form action="#" onSubmit={this.handleSubmit} id="contact-form" >
+                                                <label className="contactlabel" >Name</label>
+                                                <p><input type="text" name="name" value={name} className="comm-field" onChange={this.handleChange}/></p>
                                                 <label className="contactlabel">Email</label>
-                                                <p><input type="text" name="email" className="comm-field" /></p>
+                                                <p><input type="text" name="email" value={email} className="comm-field" onChange={this.handleChange}/></p>
                                                 <label className="contactlabel">Subject</label>
-                                                <p><input type="text" name="subject" className="comm-field" /></p>
+                                                <p><input type="text" name="subject" value={subject} className="comm-field" onChange={this.handleChange}/></p>
                                                 <label className="contactlabel">Message</label>
-                                                <p> <textarea name="message" id="msg-contact" rows="7"></textarea></p>
+                                                <p> <textarea name="message" value={message} id="msg-contact" rows="7" onChange={this.handleChange}></textarea></p>
                                                 <p class="contact-btn"><input type="submit" value="Send message" id="submit-contact" /></p>
                                             </form>
                                         </div>

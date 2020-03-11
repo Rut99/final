@@ -5,7 +5,7 @@ import { userService } from '../../services/user.service';
 import Swal from "sweetalert2";
 import moment from 'moment';
 import MUIDataTable from "mui-datatables";
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider ,withStyles} from '@material-ui/core/styles';
 import { make_cols } from './MakeColumns';
 import { SheetJSFT } from './type';
 import XLSX from 'xlsx';
@@ -14,16 +14,17 @@ const optionschoolclass = [];
 const optionschoolcmp = [];
 const rowssselected=[];
 const user=[];
+
 const columns = [
   {
     field:"userName",
-  name: "userName",
-  label: "UserName",
-  options: {
-   filter: true,
-   sort: true,
-  }
- },
+    name: "userName",
+    label: "UserName",
+    options: {
+     filter: true,
+     sort: false,
+    }
+   },
  {
   field:"loginID",
   name: "loginID",
@@ -149,6 +150,32 @@ class BulkRegistration extends React.Component {
     this.replacer=this.replacer.bind(this);
     this.registerstudent=this.registerstudent.bind(this);
   }
+  getMuiTheme = () =>
+  createMuiTheme({
+    overrides: {
+      MUIDataTable: {
+        root: {
+          fontWeight: 'lighter',
+          // fontSize: '1.9rem'
+        },
+        paper: {
+          boxShadow: "none"
+        }
+      },
+      MUIDataTableHeadCell: {
+        root: {
+          backgroundColor: 'inherit',
+          fontSize: '1.4rem',
+          fontWeight: 'bold'
+        }
+      }, 
+      MUIDataTableBodyCell: {
+        root: {
+          
+        }
+      }
+    }
+  });
 
   download() {
     var wb = XLSX.utils.book_new();
@@ -443,14 +470,14 @@ class BulkRegistration extends React.Component {
 
           <div className="containerreg1">
             <div className="rowdata">
-
+            <MuiThemeProvider theme={this.getMuiTheme()}>
               <MUIDataTable
                 title={"STUDENT LIST"}
                 data={this.state.userdata}
                 columns={columns}
                 options={options}
-
               />
+             </MuiThemeProvider>
 
             </div>
 
