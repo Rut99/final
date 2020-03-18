@@ -10,6 +10,9 @@ import { make_cols } from './MakeColumns';
 import { SheetJSFT } from './type';
 import XLSX from 'xlsx';
 import Excel from 'exceljs'
+import { usePromiseTracker } from "react-promise-tracker";
+import StyledDropzone from "./dragdrop";
+import Loader from 'react-loader';
 const optionschool = [];
 const optionschoolclass = [];
 const optionschoolcmp = [];
@@ -138,6 +141,7 @@ class BulkRegistration extends React.Component {
       schoolclass: '',
       competition: '',
       language: '',
+      loaded: true,
     }
     console.log("in constructor ",this.userdata)
     this.handleFile = this.handleFile.bind(this);
@@ -248,6 +252,7 @@ class BulkRegistration extends React.Component {
 
 
   handleFile() {
+    this.setState({loaded:false})
     console.log(this.state.fileName)
     if (this.state.fileName) {
       /* Boilerplate to set up FileReader */
@@ -282,14 +287,15 @@ class BulkRegistration extends React.Component {
 
             console.log(user);
             this.generate_loginid_password(user)
-
+            this.setState({loaded:true})
           },
           error => {
+            this.setState({loaded:true})
             console.log(error);
 
           }
         );
-
+       // this.setState({loaded:true})
         Swal.fire({
           imageUrl: require('../../images/success.gif'),
           imageAlt: 'Custom Image',
@@ -299,6 +305,7 @@ class BulkRegistration extends React.Component {
         });
       };
     } else {
+      this.setState({loaded:true})
       Swal.fire({
         imageUrl: require('../../images/failure.gif'),
         imageAlt: 'Custom Image',
@@ -545,14 +552,17 @@ class BulkRegistration extends React.Component {
               <div  className={this.state.showstep2}>
                 <label><b>After filling Choose the same excel file which you have downloaded: </b></label>
                 <input type="file" name="MyFile" id="fileexcel" accept={SheetJSFT} onChange={this.handleChange} multiple />
+                <StyledDropzone name="MyFile" id="fileexcel" accept={SheetJSFT} onChange={this.handleChange} multiple ></StyledDropzone>
                 <p><b>Now Click on Step 3</b></p>
               </div><br></br>
             
               <a onClick={this.togglestep3.bind(this)} style={{fontSize:"20px"}}><b>STEP 3:</b> <i className="fa fa-arrow-circle-down"></i></a>
               <div  className={this.state.showstep3}>
                 <label><b>Click upload, a sheet will be downloaded containing student login credentials:</b></label>
+                <Loader type="ThreeDots" loaded={this.state.loaded}>
                 <button value="Upload" onClick={this.handleFile} id="upload">Upload</button>
-              </div>
+                </Loader>
+              </div> 
             </div>
           
       

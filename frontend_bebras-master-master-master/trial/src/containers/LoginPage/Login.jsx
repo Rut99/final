@@ -2,7 +2,7 @@
 	import './Login.css';
 	import NewApp from '../NewApp/NewApp'
 	import { userService } from '../../services/user.service';
-	// import Page from 'react-page-loading'
+	import Loader from 'react-loader';	// import Page from 'react-page-loading'
 	
 	class Now extends React.Component {
 		constructor(props) {
@@ -10,6 +10,7 @@
 			this.state = {
 				loginID: '',
 				password: '',
+				loaded: true,
 			};
 			this.handleChange = this.handleChange.bind(this);
 			this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,6 +18,8 @@
 		}
 		forgetpassword()
 		{
+			this.setState({loaded:false})
+			
 			const{loginID}=this.state;
 			if(!(loginID))
 			{
@@ -25,7 +28,7 @@
 			console.log(loginID)
 			userService.ResetPasswordView(loginID).then(
 				user => {
-
+					this.setState({loaded:true})
 					console.log('success')
 					const { from } = this.props.location.state || { from: { pathname: "/resetpassword" } };
 				},
@@ -99,7 +102,9 @@
 
 								<br></br>
 								<button class="buttonlogin">Sign In</button>
+								<Loader loaded={this.state.loaded}>
 								<button class="forgetbtn" onClick={this.forgetpassword}>Forgot your password?</button>
+								</Loader>
 								<a href="/newapp/Home">Back To Home</a>
 								<a href="/Register">Not a user? Register here!</a>
 							</form>

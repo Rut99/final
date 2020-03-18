@@ -79,6 +79,7 @@
             data: {
               loginID: data,
             },
+            loading: true,
           }).then(
      
             respons => {
@@ -86,13 +87,14 @@
               console.log(respons.data);
               localStorage.setItem('uid', respons.data.uidb64);
               localStorage.setItem('token', respons.data.token);
+              
               Swal.fire({
                 imageUrl: require('../images/success.gif'),
                 imageAlt: 'Custom Image',
                 title: `${respons.data.response}`,
                 showConfirmButton: true,
                 timer: 1500000
-
+                
               });
               return respons.data;
             })
@@ -669,6 +671,7 @@
           console.log("----" + token)
           
           localStorage.setItem('user', JSON.stringify(respons.data.user));
+          console.log("hihihhhihi"+localStorage.getItem('user'))
           if(respons.data.userrole=="teacher")
           {
             localStorage.setItem('teachertoken', token);

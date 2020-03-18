@@ -5,7 +5,7 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         #fields = '__all__'
-        fields = ( 'line1','line2','city','districtID','stateID','pincode','countryID')
+        fields = ( 'line1','line2','city','districtID','stateID','pincode','latitude','longitude','countryID')
    
 class SchoolSerializer(serializers.ModelSerializer):
     class Meta:

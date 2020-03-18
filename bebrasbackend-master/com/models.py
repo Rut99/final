@@ -32,8 +32,8 @@ class Address(models.Model):
     districtID = models.ForeignKey(Districts, db_column='districtID',on_delete=models.CASCADE)  # Field name made lowercase.
     stateID = models.ForeignKey(States, db_column='stateID',on_delete=models.CASCADE) # Field name made lowercase.
     pincode = models.IntegerField()
-    latitude = models.DecimalField(max_digits=10, decimal_places=6)
-    longitude = models.DecimalField(max_digits=10, decimal_places=6)
+    latitude = models.DecimalField(max_digits=25, decimal_places=20)
+    longitude = models.DecimalField(max_digits=25, decimal_places=20)
     countryID = models.ForeignKey(Countries, db_column='countryID', to_field='countryID',on_delete=models.CASCADE)  # Field name made lowercase.
 
    

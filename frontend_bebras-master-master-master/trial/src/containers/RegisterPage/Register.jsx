@@ -9,6 +9,7 @@ import {
 
 import Swal from "sweetalert2";
 import Select from 'react-select';
+import Loader from 'react-loader';
 const options = [
 	'1', '2', '3', '4', '5', '6', '7', '8'
 ];
@@ -43,7 +44,7 @@ class Register extends React.Component {
 			line1: '', line2: '', city: '', pincode: '',
 			schoolName: '', schoolType: '', UDISEcode: '', contact: '',
 			classes: [],
-
+			loaded: true,
 		};
 
 
@@ -62,8 +63,12 @@ class Register extends React.Component {
 	}
 	handleSubmit(e) {
 		e.preventDefault();
+		this.setState({loaded:false})
+			
 		const { userName, password, gender, phone, birthdate, email, country, state, district, line1, line2, city, pincode, schoolName, schoolType, UDISEcode, contact, classes } = this.state;
 		if (phone && !isValidPhoneNumber(phone) || contact && !isValidPhoneNumber(contact)) {
+			this.setState({loaded:true})
+			
 			Swal.fire({
 				imageUrl: require('../../images/failure.gif'),
 				imageAlt: 'Custom Image',
@@ -75,6 +80,7 @@ class Register extends React.Component {
 		}
 		if (userName && password) {
 			if (!schoolName) {
+				this.setState({loaded:true})
 				Swal.fire({
 					imageUrl: require('../../images/failure.gif'),
 					imageAlt: 'Custom Image',
@@ -85,6 +91,7 @@ class Register extends React.Component {
 				return;
 			}
 			if (!gender) {
+				this.setState({loaded:true})
 				Swal.fire({
 					imageUrl: require('../../images/failure.gif'),
 					imageAlt: 'Custom Image',
@@ -100,7 +107,7 @@ class Register extends React.Component {
 			userService.register()
 				.then(
 					user => {
-
+						this.setState({loaded:true})
 						console.log(user)
 
 
@@ -111,11 +118,14 @@ class Register extends React.Component {
 					}
 				).catch(
 					error => {
+						this.setState({loaded:true})
 						return <Redirect to='http://localhost:3000/Register' />;
 					});
 		} else {
+			this.setState({loaded:false})
 			console.log(this.state)
 			if (!country || !state || !district || !schoolType || classes.length == 0) {
+				this.setState({loaded:true})
 				Swal.fire({
 					imageUrl: require('../../images/failure.gif'),
 					imageAlt: 'Custom Image',
@@ -132,7 +142,7 @@ class Register extends React.Component {
 			this.state.classes = classarr;
 			// console.log("ok", this.state.classes)
 			this.state.UDISEcode = Number(this.state.UDISEcode);
-			const address = { line1: this.state.line1, line2: this.state.line2, city: this.state.city, pincode: this.state.pincode };
+			const address = { line1: this.state.line1, line2: this.state.line2, city: this.state.city, pincode: this.state.pincode, latitude: '0', longitude: '0' };
 			const school = { schoolName: this.state.schoolName, schoolType: this.state.schoolType, UDISEcode: this.state.UDISEcode, phone: this.state.contact };
 			const sttate = { country: this.state.country, state: this.state.state, district: this.state.district, school: school, address: address, classes: this.state.classes };
 			// console.log(school, address, sttate)
@@ -408,8 +418,9 @@ class Register extends React.Component {
 								<h1>Step 1</h1>
 								<p > If School is already registered, {/*style={{fontSize:"20px"}}*/}
 									Click continue to proceed</p>
+									<Loader type="ThreeDots" loaded={this.state.loaded}>
 								<button className="ghost" id="signUp" onClick={this.Signup}>Continue</button>
-
+									</Loader>
 							</div>
 
 						</div>

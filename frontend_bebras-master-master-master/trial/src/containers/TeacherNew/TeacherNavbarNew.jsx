@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import './TeacherNavbarNew.css'
 import BulkRegistration from "../../components/BulkRegistration/BulkRegistration";
+
 import IndividualRegistration from "../../components/IndividualRegistration/IndividualRegistration";
 import TeacherRegister from "../../components/TeacherRegister/TeacherRegister";
 import logoz from '../../images/Bebras_india_logo.png';
@@ -18,7 +19,16 @@ import {
 class TeacherNavbarNew extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            userName: '',
+            };
         this.handlesubmit = this.handlesubmit.bind(this);
+        this.loadID = this.loadID.bind(this);
+    }
+    loadID(){
+        localStorage.getItem('user');
+        this.userName='lol';
+        console.log("aaaaaaaaaaaa"+localStorage.getItem('user'));
     }
     handlesubmit() {
         console.log("logging out");
@@ -39,12 +49,14 @@ class TeacherNavbarNew extends React.Component {
         );
     }
     render() {
+        const { userName  } = this.state;
         return (
             <Router>
                 <div className="App">
                     <title>Bebras</title>
                     <meta charset="UTF-8"></meta>
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossOrigin="anonymous" />
+                    
                     {/* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">  </link> */}
                     <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet"></link>
                     <nav class="navbar navbar-expand-lg navattributes justify-content-end">
@@ -65,9 +77,17 @@ class TeacherNavbarNew extends React.Component {
                             <li class="nav-item ">
                                 <NavLink to="/teachernew/Analysis" className="headings">Analysis</NavLink>
                             </li>
-                             <li><button type="button" class="btn btn-info btn-md logoutbtn " onClick={this.handlesubmit}>
+                             {/* <li><button type="button" class="btn btn-info btn-md logoutbtn " onClick={this.handlesubmit}>
                                 <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
                                 </button>
+                            </li> */}
+                            <li>
+                            <div class="dropdown">
+                            <button class=" dropbtn" onLoad={this.loadID}>{userName}<i class="fa fa-angle-down" aria-hidden="true"></i></button>
+                            <div class="dropdown-content">
+                                <button className="logoutbtn" onClick={this.handlesubmit}><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
+                            </div>
+                            </div>
                             </li>
 
                         </ul>

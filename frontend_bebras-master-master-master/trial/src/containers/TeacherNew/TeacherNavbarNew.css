@@ -79,7 +79,58 @@
             height: 15px;
             z-index:90;
     } */
-
+    .dropbtn {
+        background-color: #367d92;
+        color: #ffffff;
+        margin-left: 5px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        height: 40px;
+      }
+          
+    .logoutbtn{
+        size: inherit;
+        height: 40px;
+        margin-left: 5px;
+        width: inherit;
+    }
+      /* The container <div> - needed to position the dropdown content */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      /* Dropdown Content (Hidden by Default) */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: transparent;
+        min-width: 160px;
+        /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+        z-index: 1;
+      }
+      
+      /* Links inside the dropdown */
+      .dropdown-content button {
+        color: black;
+        /* padding: 12px 16px; */
+        text-decoration: none;
+        display: block;
+      }
+      
+      /* Change color of dropdown links on hover */
+      .dropdown-content button:hover {background-color: #f1f1f1}
+      
+      /* Show the dropdown menu on hover */
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      
+      /* Change the background color of the dropdown button when the dropdown content is shown */
+      .dropdown:hover .dropbtn {
+        background-color: #3e898e;
+      }
 
 
     .TeacherNavbarNew{
@@ -111,12 +162,7 @@
         padding: 0 0 16px 0;
         
     }
-    
-    .logoutbtn{
-        size: 30px;
-        height: 40px;
-        margin: 5px;
-    }
+
     .zz-top:before{
         background: linear-gradient(-135deg, #ffffff 50%, transparent 0), linear-gradient(135deg, #ffffff 50%, transparent 0);
         background: -webkit-linear-gradient(-135deg, #ffffff 33.33%, transparent 0), -webkit-linear-gradient(-45deg, #ffffff 33.33%, transparent 0);

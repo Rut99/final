@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import { userService } from '../services/user.service';
-
+import Loader from 'react-loader';
     class Contact extends React.Component {
         constructor(props) {
             super(props);
@@ -10,6 +10,7 @@ import { userService } from '../services/user.service';
                 email: '',
                 subject:'',
                 message:'',
+                loaded: true,
             };
             this.handleChange = this.handleChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,6 +22,8 @@ import { userService } from '../services/user.service';
         handleSubmit(event) {
             event.preventDefault();
             console.log("hicon")
+            this.setState({loaded:false})
+			
             const { name, email, subject, message  } = this.state;
             console.log(this.state)
             if (!(email && message && subject && name)) {
@@ -28,10 +31,13 @@ import { userService } from '../services/user.service';
             }
             userService.contactUs(name, email, subject, message)
 				.then(
+                    
 					user => {
+                        this.setState({loaded:true})
                         const { from } = this.props.location.state || { from: { pathname: "http://localhost:3000/newapp/Contact" } };
 					},
 					error => {
+                        this.setState({loaded:true})
 						const { from } = this.props.location.state || { from: { pathname: "http://localhost:3000/newapp/Contact" } };
 					}
 				);
@@ -66,6 +72,7 @@ import { userService } from '../services/user.service';
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div id="contact-form-holder">
+                                        <Loader type="ThreeDots" loaded={this.state.loaded}>
                                             <form action="#" onSubmit={this.handleSubmit} id="contact-form" >
                                                 <label className="contactlabel" >Name</label>
                                                 <p><input type="text" name="name" value={name} className="comm-field" onChange={this.handleChange}/></p>
@@ -77,6 +84,7 @@ import { userService } from '../services/user.service';
                                                 <p> <textarea name="message" value={message} id="msg-contact" rows="7" onChange={this.handleChange}></textarea></p>
                                                 <p class="contact-btn"><input type="submit" value="Send message" id="submit-contact" /></p>
                                             </form>
+                                            </Loader>
                                         </div>
                                         <p id="ip1"></p>
                                     <p id="ip3"></p>

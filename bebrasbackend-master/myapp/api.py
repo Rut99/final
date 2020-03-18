@@ -15,7 +15,7 @@ from .constants import  studentEnrollmentdata,TeacherRoleID,StudentRoleID,data1,
 import random
 import string
 import requests 
-
+from geopy.geocoders import Nominatim
 
 from rest_framework import serializers
 from .models import *
@@ -461,7 +461,22 @@ class SchoolRegisterAPI(generics.GenericAPIView):
         addressdata['districtID']=district.districtID
         addressdata['stateID']=state.stateID
         addressdata['countryID']=country.countryID
-        print("address",addressdata)
+        addressdata['latitude']='0.1'
+        addressdata['longitude']='0.2'
+        geolocator = Nominatim(user_agent="bebras")
+        location = geolocator.geocode(schooldata['schoolName'])
+        if location is None:
+
+          print("lol")
+
+        else:
+
+          print(location.address)
+          print((location.latitude, location.longitude))
+          addressdata['latitude']=location.latitude
+          addressdata['longitude']=location.longitude
+
+        print("address...",addressdata)
         serializer = AddressSerializer(data=addressdata)
         if serializer.is_valid():
           address = serializer.save()

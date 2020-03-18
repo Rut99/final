@@ -15,8 +15,14 @@ import Practice_challenge2 from "./Practice_challenge2";
 import Practice_challenge3 from "./Practice_challenge3";
 import Practice_challenge4 from "./Practice_challenge4";
 import Practice_challenge5 from "./Practice_challenge5";
+import Practice_challenge6 from "./Practice_challenge6";
+import Practice_challenge7 from "./Practice_challenge7";
+import Practice_challenge8 from "./Practice_challenge8";
+import Practice_challenge9 from "./Practice_challenge9";
+import Practice_challenge10 from "./Practice_challenge10";
+import Practice_challenge11 from "./Practice_challenge11";
 // import BulkRegistration from "./BulkRegistration/BulkRegistration";
-  const componentsarr=[<Practice_challenge1/>,<Practice_challenge2/>,<Practice_challenge3/>,<Practice_challenge4/>,<Practice_challenge5/>];
+  const componentsarr=[<Practice_challenge1/>,<Practice_challenge2/>,<Practice_challenge3/>,<Practice_challenge4/>,<Practice_challenge5/>,<Practice_challenge6/>,<Practice_challenge7/>,<Practice_challenge8/>,<Practice_challenge9/>,<Practice_challenge10/>,<Practice_challenge11/>];
 
 class Page extends React.Component {
     constructor() {
@@ -24,7 +30,7 @@ class Page extends React.Component {
 
         // an example array of items to be paged
         var exampleItems = [...Array(10).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) }));
-exampleItems=[{id:1,name: componentsarr[0]},{id:2,name: componentsarr[1]},{id:3,name: componentsarr[2]},{id:4,name: componentsarr[3]},{id:5,name: componentsarr[4]}]
+exampleItems=[{id:1,name: componentsarr[0]},{id:2,name: componentsarr[1]},{id:3,name: componentsarr[2]},{id:4,name: componentsarr[3]},{id:5,name: componentsarr[4]},{id:6,name: componentsarr[5]},{id:7,name: componentsarr[6]},{id:8,name: componentsarr[7]},{id:9,name: componentsarr[8]},{id:10,name: componentsarr[9]},{id:11,name: componentsarr[10]}]
         this.state = {
             exampleItems: exampleItems,
             pageOfItems: []
